@@ -14,17 +14,22 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
 
   devtool: 'source-map',
 
   module: {
-    loaders: [
+    rules: [
       {
-        test: /\.(tsx?|jsx?)$/,
-        loader: 'awesome-typescript-loader',
-        exclude: /node_modules/,
+        test: /\.jsx?$/,
+        exclude: /(node_modules)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['env', 'react'],
+          },
+        },
       },
     ],
   },
