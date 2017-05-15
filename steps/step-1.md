@@ -8,7 +8,7 @@ Do zrobienia:
 - w konfiguracji webpacka:
     - podmień `babel-loader` na `awesome-typescript-loader`
     - dodaj do `resolve.extensions` rozszerzenia `ts` i `tsx`
-- zmień rozszerzenie `src/main.jsx` na `tsx`
+- zmień rozszerzenie `src/main.jsx` na `tsx` i zaktualizuj `entry.main`
 - usuń nieużywane paczki związane z Babelem z `package.json`
 
 `tsconfig.json` powinien wyglądać następująco:
