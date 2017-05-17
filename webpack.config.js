@@ -6,7 +6,7 @@ const distDir = path.join(__dirname, './dist');
 
 module.exports = {
   entry: {
-    main: './src/main.jsx',
+    main: './src/main.tsx',
   },
   output: {
     filename: '[name].[hash].js',
@@ -14,22 +14,17 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
 
   devtool: 'source-map',
 
   module: {
-    rules: [
+    loaders: [
       {
-        test: /\.jsx?$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['env', 'react'],
-          },
-        },
+        test: /\.(tsx?|jsx?)$/,
+        loader: 'awesome-typescript-loader',
+        exclude: /node_modules/,
       },
     ],
   },
