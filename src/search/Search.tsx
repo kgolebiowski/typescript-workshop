@@ -39,7 +39,7 @@ export class Search extends Component<{}, SearchState> {
     if (query) {
       const data = await this.searchTracks.search(query, direction);
       const results = data.tracks.items;
-      
+
       this.setState(
         (state) => state.query === query ? {results} : {}
       );
@@ -60,18 +60,18 @@ export class Search extends Component<{}, SearchState> {
     return (
       <div className='container'>
         <header className="app-header">
-          <input 
-            type="text" 
-            placeholder="Search..." 
+          <input
+            type="text"
+            placeholder="Search..."
             className="search-input"
             value={this.state.query}
             onChange={this.queryChanged}
           />
         </header>
         <TrackList tracks={this.state.results}/>
-        <Pagination 
-          onNext={() => this.updateResults(this.state.query, 1)} 
-          onPrevious={() => this.updateResults(this.state.query, -1)} 
+        <Pagination
+          onNext={() => this.updateResults(this.state.query, 1)}
+          onPrevious={() => this.updateResults(this.state.query, -1)}
           hideNext={this.isDirectionHidden(Direction.Next)}
           hidePrevious={this.isDirectionHidden(Direction.Previous)}
         />

@@ -48,7 +48,7 @@ export enum Direction {
 
 export class TrackSearch {
   static readonly baseUrl = `https://api.spotify.com/v1/search`;
-  
+
   nextUrl: string | null = null;
   previousUrl: string | null = null;
 
@@ -76,7 +76,7 @@ export class TrackSearch {
 
     const response = await fetch(url);
     const data: SpotifyTrackResults = await response.json();
-    
+
     this.nextUrl = data.tracks.next;
     this.previousUrl = data.tracks.previous;
 
