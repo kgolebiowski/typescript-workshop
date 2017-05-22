@@ -1,7 +1,8 @@
 {
-    "compilerOptions": {
-        "allowJs": true,
-        "jsx": "react",
-        "lib": ["ES2015", "DOM"]
-    }
+	"compilerOptions": {
+		"allowJs": true,
+		"jsx": "react",
+		"lib": ["es2015", "dom"],
+		"strict": true
+	}
 }
