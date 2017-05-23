@@ -40,6 +40,7 @@ export class Search extends Component<{}, SearchState> {
       const data = await this.spotifySearch.search(query, direction);
       const results = data.tracks.items;
 
+
       this.setState(
         (state) => state.query === query ? {results} : {}
       );
