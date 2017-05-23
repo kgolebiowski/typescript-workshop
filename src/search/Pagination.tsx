@@ -1,7 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { Component } from 'react';
 
-export function Pagination(props) {
+interface PaginationProps {
+  onNext: () => void;
+  onPrevious: () => void;
+  hideNext: boolean;
+  hidePrevious: boolean;
+}
+
+export function Pagination(props: PaginationProps) {
   return (
     <div className='pagination'>
       <button

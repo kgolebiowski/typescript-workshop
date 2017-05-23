@@ -17,7 +17,7 @@ interface Album extends SpotifyObject {
   images: Image[];
 }
 
-interface Track extends SpotifyObject {
+export interface Track extends SpotifyObject {
   preview_url: string;
   album: Album;
   artists: Artist[];
@@ -39,13 +39,13 @@ interface SearchData {
   tracks: Tracks;
 }
 
-const baseUrl = `https://api.spotify.com/v1/search`;
-
 export class TrackSearch {
-  nextUrl;
-  previousUrl;
+  static readonly baseUrl = `https://api.spotify.com/v1/search`;
 
-  async search(query, direction): Promise<SearchData> {
+  nextUrl: string;
+  previousUrl: string;
+
+  async search(query: string, direction?: number): Promise<SearchData> {
     let url;
 
     if (direction) {
@@ -60,7 +60,7 @@ export class TrackSearch {
 
       url = directionUrl;
     } else {
-      url = buildUrl(baseUrl, {
+      url = buildUrl(TrackSearch.baseUrl, {
         q: query,
         type: 'track,artist',
         limit: 12,
@@ -76,11 +76,11 @@ export class TrackSearch {
     return data;
   }
 
-  hasDirection(direction) {
+  hasDirection(direction: number) {
     return !!this.paginationUrl(direction);
   }
 
-  paginationUrl(direction) {
+  private paginationUrl(direction: number) {
     switch (direction) {
       case 1:
         return this.nextUrl;
