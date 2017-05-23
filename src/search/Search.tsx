@@ -1,10 +1,9 @@
 import * as React from 'react';
 import {Component} from 'react';
 
-import {TrackSearch} from './trackSearch';
+import {SpotifySearch, Direction, Track} from './spotifySearch';
 import {TrackList} from './TrackList';
 import {Pagination} from "./Pagination";
-import {Track} from './trackSearch';
 
 interface SearchState {
   query: string;
@@ -12,7 +11,7 @@ interface SearchState {
 }
 
 export class Search extends Component<{}, SearchState> {
-  searchTracks = new TrackSearch();
+  spotifySearch = new SpotifySearch();
 
   constructor() {
     super();
@@ -36,9 +35,9 @@ export class Search extends Component<{}, SearchState> {
     this.updateResults(query);
   }
 
-  async updateResults(query: string, direction?: number) {
+  async updateResults(query: string, direction?: Direction) {
     if (query) {
-      const data = await this.searchTracks.search(query, direction);
+      const data = await this.spotifySearch.search(query, direction);
       const results = data.tracks.items;
 
       this.setState(
@@ -49,12 +48,12 @@ export class Search extends Component<{}, SearchState> {
     }
   }
 
-  isDirectionHidden(direction: number) {
+  isDirectionHidden(direction: Direction) {
     if (!this.state.query) {
       return true;
     }
 
-    return !this.searchTracks.hasDirection(direction);
+    return !this.spotifySearch.hasDirection(direction);
   }
 
   render() {
@@ -71,10 +70,10 @@ export class Search extends Component<{}, SearchState> {
         </header>
         <TrackList tracks={this.state.results}/>
         <Pagination
-          onNext={() => this.updateResults(this.state.query, 1)}
-          onPrevious={() => this.updateResults(this.state.query, -1)}
-          hideNext={this.isDirectionHidden(1)}
-          hidePrevious={this.isDirectionHidden(-1)}
+          onNext={() => this.updateResults(this.state.query, Direction.Next)}
+          onPrevious={() => this.updateResults(this.state.query, Direction.Previous)}
+          hideNext={this.isDirectionHidden(Direction.Next)}
+          hidePrevious={this.isDirectionHidden(Direction.Previous)}
         />
       </div>
     );

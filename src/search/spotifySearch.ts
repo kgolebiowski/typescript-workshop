@@ -23,6 +23,10 @@ export interface Track extends SpotifyObject {
   artists: Artist[];
 }
 
+export function isTrack(spotifyObj: SpotifyObject): spotifyObj is Track {
+  return spotifyObj.type === 'track';
+}
+
 interface Artist extends SpotifyObject { }
 
 interface SpotifyPagination<T> {
@@ -37,13 +41,26 @@ interface SearchData {
   artists?: SpotifyPagination<Album>;
 }
 
-export class TrackSearch {
+interface SearchParams {
+  q: string;
+  type: 'album' | 'artist' | 'track',
+  limit?: number,
+}
+
+export enum Direction {
+  Next = 1,
+  Previous = -1,
+}
+
+export type SearchType = 'track' | 'album' | 'artist';
+
+export class SpotifySearch {
   static readonly baseUrl = `https://api.spotify.com/v1/search`;
 
   nextUrl: string;
   previousUrl: string;
 
-  async search(query: string, direction?: number): Promise<SearchData> {
+  async search(query: string, direction?: Direction, type: SearchType = 'track'): Promise<SearchData> {
     let url;
 
     if (direction) {
@@ -58,9 +75,9 @@ export class TrackSearch {
 
       url = directionUrl;
     } else {
-      url = buildUrl(TrackSearch.baseUrl, {
+      url = buildUrl(SpotifySearch.baseUrl, {
         q: query,
-        type: 'track,artist',
+        type,
         limit: 12,
       });
     }
@@ -74,11 +91,11 @@ export class TrackSearch {
     return data;
   }
 
-  hasDirection(direction: number) {
+  hasDirection(direction: Direction) {
     return !!this.paginationUrl(direction);
   }
 
-  private paginationUrl(direction: number) {
+  private paginationUrl(direction: Direction) {
     switch (direction) {
       case 1:
         return this.nextUrl;
