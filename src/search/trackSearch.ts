@@ -19,7 +19,7 @@ interface Album extends SpotifyObject {
   images: Image[];
 }
 
-interface Track extends SpotifyObject {
+export interface Track extends SpotifyObject {
   preview_url: string;
   album: Album;
   artists: Artist[];
@@ -45,7 +45,7 @@ export class TrackSearch {
   nextUrl;
   previousUrl;
 
-  async search(query:string, direction:boolean): Promise<SearchData> {
+  async search(query:string, direction:number): Promise<SearchData> {
     let url;
 
     if (direction) {
