@@ -27,25 +27,28 @@ export interface Track extends SpotifyObject {
 
 interface Artist extends SpotifyObject { }
 
-interface SpotifyPagination {
-  items: SpotifyObject[];
+interface PaginationObject<T> {
+  items: T[];
   next: string;
   previous: string;
 }
 
-interface Tracks extends SpotifyPagination {
-  items: Track[];
+interface SearchData {
+  tracks?: PaginationObject<Track>;
+  albums?: PaginationObject<Artist>;
+  artists?: PaginationObject<Album>;
 }
 
-interface SearchData {
-  tracks: Tracks;
+enum Direction {
+  Previous = -1,
+  Next = 1
 }
 
 export class TrackSearch {
   nextUrl;
   previousUrl;
 
-  async search(query:string, direction:number): Promise<SearchData> {
+  async search(query:string, direction:Direction): Promise<SearchData> {
     let url;
 
     if (direction) {
@@ -76,15 +79,15 @@ export class TrackSearch {
     return data;
   }
 
-  hasDirection(direction) {
+  hasDirection(direction:Direction):boolean {
     return !!this.paginationUrl(direction);
   }
 
-  paginationUrl(direction) {
+  paginationUrl(direction:Direction): string {
     switch (direction) {
-      case 1:
+      case Direction.Next:
         return this.nextUrl;
-      case -1:
+      case Direction.Previous:
         return this.previousUrl;
     }
   }

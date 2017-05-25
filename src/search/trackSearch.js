@@ -35,6 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { buildUrl } from '../utils/urls';
 var baseUrl = "https://api.spotify.com/v1/search";
+var Direction;
+(function (Direction) {
+    Direction[Direction["Previous"] = -1] = "Previous";
+    Direction[Direction["Next"] = 1] = "Next";
+})(Direction || (Direction = {}));
 var TrackSearch = (function () {
     function TrackSearch() {
     }
@@ -77,9 +82,9 @@ var TrackSearch = (function () {
     };
     TrackSearch.prototype.paginationUrl = function (direction) {
         switch (direction) {
-            case 1:
+            case Direction.Next:
                 return this.nextUrl;
-            case -1:
+            case Direction.Previous:
                 return this.previousUrl;
         }
     };
