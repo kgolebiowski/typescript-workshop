@@ -24,6 +24,8 @@ TypeScript to nadzbiór ES6, posiada także wparcie dla JSX, co oznacza, że mo�
     }
   }
   ```
+  Notatki:
+  - allowJs - będzie przetwarzał tez pliki js
 
 - w konfiguracji webpacka `webpack.config.js`:
     - dodaj do `resolve.extensions` rozszerzenia `ts` i `tsx`
@@ -81,3 +83,8 @@ To tyle jeśli chodzi o `main.tsx`, rozszerzenia pozostałych plików zmieniaj s
 - Dodatkowe informacje o konfiguracji TypeScriptu: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
 
 ## [Krok 2: Proste typy ➜](./step-2.md)
+
+## Notatki
+
+.ts - typescript
+.tsx - react + typescript
